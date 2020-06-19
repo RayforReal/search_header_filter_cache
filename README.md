@@ -1,6 +1,7 @@
 ### 列表页面搜索头请求封装组件
 >基于element-ui开发
-
+>
+>github地址   https://github.com/BalotT/search_header_filter_cache.git
 
 ### 安装
         npm install search_header_filter_cache -S
