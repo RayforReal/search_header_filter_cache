@@ -1,0 +1,188 @@
+<template>
+    <div>
+        <search-header
+                :btn-list="btnList"
+                :input-list="inputList"
+                :valid-rules="validRules"
+                name="App">
+        </search-header>
+        <div style="margin-top:20px">
+            {{searchData}}
+        </div>
+    </div>
+</template>
+
+<script>
+
+    export default {
+        name: "App",
+        data() {
+            return {
+                searchData: {},
+                inputList: [
+                    {
+                        label: '下拉框异步请求',
+                        key: 'select_async',
+                        type: 'select',
+                        query: true,
+                        list: async () => {
+                            return [];
+                        }
+                    },
+                    {
+                        default: true,
+                        label: '始值',
+                        key: 'aaa',
+                        type: 'input',
+                    },
+                    {
+                        label: '下拉2222222框初始值',
+                        key: 'select',
+                        type: 'select',
+                        list: [{label: '未送审', value: '未送审'}, {label: '待审核', value: '待审核'}]
+                    },
+                    {
+                        label: '输入框',
+                        key: 'input',
+                        type: 'input',
+                    },
+                    {
+                        label: '日期选择',
+                        key: 'dataPicker',
+                        type: 'date',
+                    },
+                    {
+                        label: '日期时间选择',
+                        key: 'datetime',
+                        type: 'datetime',
+                    },
+                    {
+                        default: true,
+                        label: '时间段选择',
+                        key: 'dateRange',
+                        type: 'dateRange',
+                        value: ['parentStart', 'parentEnd']
+                    },
+                    {
+                        label: '时间段选择2',
+                        key: 'dateRange2',
+                        type: 'dateRange',
+                        value: ['parentStart_2', 'parentEnd_2']
+                    },
+                    {
+                        type: 'cascade',
+                        queryKey: 'label',//最后请求时用的key 查询时需要暴露出来的key
+                        label: '地区',//作为选择筛选条件的label用
+                        cascadeList: {
+                            area: {
+                                label: '区域',
+                                key: 'area',
+                                nextKey: 'provinces',
+                                list: async () => {
+                                    return [];
+                                },
+                            },
+                            provinces: {
+                                label: '省份',
+                                key: 'provinces',
+                                nextKey: 'city',
+                                list: async () => {
+                                    return [];
+                                },
+                            },
+                            city: {
+                                label: '城市',
+                                key: 'city',
+                                list: async () => {
+                                    return [];
+                                },
+                            },
+                        },
+                    },
+                ],
+                validRules: {
+                    input: [
+                        {pattern: /^[\u4e00-\u9fa5]+$/, message: '请输入中文', trigger: 'change'}
+                    ]
+                },
+                btnList: [
+                    {
+                        default: true,
+                        label: '查询_1',
+                        type: 'primary',
+                        key: 'query_1',
+                        isSearch: true,
+                        icon: 'el-icon-zoom-in',
+                        show: () => {
+                            return true
+                        },
+                        method: (param, data) => {
+                            this.searchData = data;
+                            console.log(data, param, '查询');
+                        },
+                    },
+                    {
+                        default: true,
+                        label: '导出_1',
+                        type: 'success',
+                        key: 'import_1',
+                        show: () => {
+                            return false
+                        },
+                        method: (param) => {
+                            console.log(param, '导出_1');
+                        },
+                    },
+                    {
+                        label: '新增_1',
+                        default: true,
+                        icon: 'el-icon-plus',
+                        type: 'success',
+                        key: 'add_1',
+                        show: () => {
+                            return true
+                        },
+                        method: (param) => {
+                            console.log(param, '新增_1');
+                        },
+                    },
+                    {
+                        default: true,
+                        label: '查询_2',
+                        key: 'query_2',
+                        type: 'primary',
+                        show: () => {
+                            return true
+                        },
+                        method: (param) => {
+                            console.log(param, '查询_2');
+                        },
+                    },
+                    {
+                        label: '导出_2',
+                        type: 'success',
+                        key: 'import_2',
+                        method: (param) => {
+                            console.log(param, '导出_2');
+                        },
+                    },
+                    {
+                        label: '新增_2',
+                        type: 'success',
+                        key: 'add_2',
+                        show: () => {
+                            return true
+                        },
+                        method: (param) => {
+                            console.log(param, '新增_2');
+                        },
+                    }
+                ],
+            }
+        }
+    };
+</script>
+
+<style lang="scss">
+
+</style>
