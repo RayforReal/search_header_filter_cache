@@ -1,8 +1,15 @@
 ### 列表页面搜索头请求封装组件
 >基于element-ui开发
 
->vuedraggable插件
 
+### 安装
+        npm install search_header_filter_cache -S
+        
+### 使用
+
+    在main.js中 引入并且注册
+    #main.js
+    import searchHeader from 'search_header_filter_cache'
   # 父组件使用
 
 ``` 
@@ -198,3 +205,8 @@ validRules: {
     ]
 },
 ```
+
+
+
+    
+        
