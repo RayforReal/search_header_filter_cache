@@ -3,7 +3,8 @@
             title="增加过滤条件"
             :visible.sync="vis"
             :before-close="close"
-            width="50%">
+            width="40%">
+        <h4 slot="title" style="margin: 0">增加过滤条件</h4>
         <div class="check-box">
             <div>
                 <h4 class="after-class">字段信息</h4>
@@ -23,7 +24,7 @@
                 </div>
             </div>
             <div>
-                <h4 class="after-class">当前所选条件</h4>
+                <h4 class="after-class check-box-margin">当前所选条件</h4>
                 <draggable :list="checkedInput"
                            @start="draggingStart"
                            @end="dragging = false">
@@ -32,7 +33,7 @@
                             :style="{'background':dragging&&index===dragIndex?'#c1def9':'#e7f3fd'}"
                             :key="item">
                             <img src="./icon/drag.png" alt="">
-                            <span style="cursor: move;color:#2680D1">{{item}}</span>
+                            <span style="cursor: move;color:#2680D1;margin: 0 8px">{{item}}</span>
                             <i style="color: #2680D1" @click='deleteChecked(index)' class="el-icon-close"/>
                         </li>
                     </transition-group>
@@ -40,7 +41,7 @@
             </div>
         </div>
         <div slot="footer" style="text-align: center">
-            <el-button type="success" :size="btnSize" @click="query">确定</el-button>
+            <el-button type="primary" :size="btnSize" @click="query">确定</el-button>
             <el-button :size="btnSize" @click="close">取消</el-button>
         </div>
     </el-dialog>
@@ -53,8 +54,8 @@
         name: "filterDialog",
         components: {draggable},
         props: {
-            cacheList:{
-                type:Array
+            cacheList: {
+                type: Array
             },
             vis: {
                 type: Boolean
@@ -154,17 +155,22 @@
         .after-class {
             position: relative;
             color: #0f76c0;
-            margin-bottom: 15px;
+            margin-bottom: 24px;
 
             &::before {
                 content: "";
                 display: block;
                 width: 4px;
-                height: 100%;
+                height: 14px;
+                top: 3px;
                 background-color: #0f76c0;
                 position: absolute;
                 left: -15px;
             }
+        }
+
+        .check-box-margin {
+            margin-bottom: 14px;
         }
 
         .ul-class {
@@ -177,7 +183,7 @@
                 cursor: pointer;
                 border: 1px solid #ADD8FF;
                 border-radius: 4px;
-                margin-right: 10px;
+                margin-right: 8px;
                 padding: 3px 8px;
                 margin-top: 10px;
                 opacity: 0.8;
@@ -188,7 +194,8 @@
             margin-bottom: 10px;
             display: inline-flex;
             align-items: center;
-            width: 26%;
+            width: 20%;
+            margin-right: 5%;
 
             .el-checkbox__label {
                 overflow: hidden;
@@ -196,5 +203,20 @@
                 white-space: nowrap;
             }
         }
+    }
+
+    /deep/ .el-dialog__header {
+        padding: 24px 24px 0;
+    }
+
+    /deep/ .el-dialog__body {
+        padding: 0 24px 8px;
+    }
+
+    /deep/ .el-button + .el-button {
+        margin-left: 8px;
+    }
+    /deep/ .el-checkbox__label {
+        padding-left: 8px;
     }
 </style>

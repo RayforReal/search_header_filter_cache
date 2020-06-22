@@ -348,6 +348,10 @@
 
         .btn-container {
             text-align: right;
+
+            /deep/ .el-button + .el-button {
+                margin-left: 8px;
+            }
         }
 
         .filter-container {
