@@ -53,6 +53,9 @@
         name: "filterDialog",
         components: {draggable},
         props: {
+            cacheList:{
+                type:Array
+            },
             vis: {
                 type: Boolean
             },
@@ -86,10 +89,9 @@
                     let count = 0;
                     //是否已经有缓存 有缓存半选状态逻辑可以通过缓存数据判断
                     //有缓存 就是有序
-                    let list = JSON.parse(localStorage.getItem(`searchList_${this.name}`));
-                    if (list) {
-                        count = list.length;
-                        this.checkedInput = list;
+                    if (this.cacheList) {
+                        count = this.cacheList.length;
+                        this.checkedInput = this.cacheList;
                     } else {
                         this.inputList.forEach(item => {
                             if (item.default) {

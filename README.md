@@ -11,6 +11,9 @@
     在main.js中 引入并且注册
     #main.js
     import searchHeader from 'search_header_filter_cache'
+    import 'search_header_filter_cache/lib/searchHeader.css'
+    Vue.use(searchHeader);
+
   # 父组件使用
 
 ``` 
@@ -18,12 +21,30 @@
         :btn-list="btnList"
         :input-list="inputList"
         :valid-rules="validRules"
+        :cache-proxy="cacheProxy"
          name="****">
     </search-header>
 ```
    ## name （当前页面name值）
     必须为全局唯一值，用作缓存用户所选输入框习惯，存在localStorage,属性名取名规则为 searchList_${name} 
-   ## inputList  （所有支持的搜索条件输入框）
+ 
+
+  ## cacheProxy （记录用户习惯的方法合集）
+
+        cacheProxy:{
+            without:true, //如果在父组件定义存取方法设为true
+            asyncGet:false,//如果为true get函数需要添加async 返回一个promise对象到子组件
+            get: ()=>{
+                return JSON.parse(localStorage.getItem('****'))//模拟外部取值
+            },
+            set:(data)=>{
+                console.log(data);
+                localStorage.setItem(`****`, JSON.stringify(data));
+            }
+        }
+
+
+ ## inputList  （所有支持的搜索条件输入框）
 
 ``` 
         inputList: [
@@ -149,6 +170,7 @@
             label: '查询',
             type: 'primary',
             key: 'query',
+            className:'red-class',//定义在全局的class名
             isSearch:true,
             icon: 'el-icon-zoom-in',
             show: () => {
@@ -182,12 +204,20 @@
         },
     ],
 
+
+        //定义在全局的class 按钮样式覆盖
+        <style lang="scss" >
+        .red-class{
+             color: red !important;
+        }
+        </style>
 ```
 
 | 参数       | 说明               | 类型   | 可选值 | 默认值 |
 |------------|--------------------|--------|-------|-------|
 | default | 需要默认展示的按钮 | boolean | -     | false     |
 | label | 标签文本       | string | -     | -     |
+| className | 按钮样式覆盖的全局class名       | string | -     | -     |
 | type | 按钮类型(同element-ui)       | string | -     | -     |
 | isSearch | 控制点击按钮后回调参数是否有搜索条件       | boolean | -     | false     |
 | icon | 图标class名(同element-ui)，default属性为true时生效       | string | -     | -     |

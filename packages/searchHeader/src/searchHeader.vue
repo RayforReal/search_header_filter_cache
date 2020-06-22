@@ -4,6 +4,7 @@
             <el-button v-for="item in showBtnList"
                        :key="item.key"
                        :size="btnSize"
+                       :class="item.className||''"
                        @click="operationClick(item)"
                        :icon="item.icon||''"
                        :type='item.type'>{{item.label}}
@@ -35,7 +36,7 @@
                      class="form-container"
                      :model="searchData"
                      label-width="120px"
-                     label-position="right"
+                     label-position="left"
                      :rules="validRules">
                 <template v-for="item in defaultShowList">
                     <el-form-item
@@ -81,6 +82,7 @@
         </div>
         <filter-dialog
                 :name="name"
+                :cache-list="cacheList"
                 @checkedInput="checkedInput"
                 :input-list="propInputList"
                 :vis.sync="filterDialogShow">
@@ -97,13 +99,14 @@
         components: {inputContent, filterDialog},
         data() {
             return {
+                cacheList: [],
                 onFilter: require('./icon/onFilter.png'),
                 offFilter: require('./icon/offFilter.png'),
                 filterDialogShow: false,
                 searchData: {},
                 showBtnList: [],
                 hiddenBtnList: [],
-                showFiltrate: false,
+                showFiltrate: true,
                 revertBtnShow: false,
                 cascadeList: [],
                 cascadeSelectList: {},
@@ -112,6 +115,14 @@
             }
         },
         props: {
+            cacheProxy: {
+                type: Object,
+                default: () => {
+                    return {
+                        without: false
+                    }
+                }
+            },
             btnSize: {
                 type: String,
                 default: 'mini'
@@ -157,8 +168,8 @@
         methods: {
             dataInit() {
                 this.btnList.forEach(item => {
-                    (item.default && item.show && item.show())&&this.showBtnList.push(item);
-                    (!item.default&& item.show && item.show()) && (this.hiddenBtnList.push(item))
+                    (item.default && item.show && item.show()) && this.showBtnList.push(item);
+                    (!item.default && item.show && item.show()) && (this.hiddenBtnList.push(item))
                 });
                 this.dialogInputInit();
                 this.cascadeInit();
@@ -166,8 +177,20 @@
             dialogInputInit() {
                 this.propInputList = this.inputList;
                 this.defaultShowList = [];
-                let list = JSON.parse(localStorage.getItem(`searchList_${this.name}`));
+                let list = {};
+                if (this.cacheProxy.without) {
+                    if (this.cacheProxy.asyncGet) {
+                        this.cacheProxy.get().then(res => {
+                            list = res;
+                        });
+                    } else {
+                        list = this.cacheProxy.get();
+                    }
+                } else {
+                    list = JSON.parse(localStorage.getItem(`searchList_${this.name}`));
+                }
                 if (list) {
+                    this.cacheList = list;
                     this.propInputList.forEach(e => {
                         //先全部设成false 有缓存的再设成true
                         //有缓存说明和list代码设的default属性无关
@@ -220,7 +243,11 @@
                 });
                 this.cascadeInit();
                 this.searchData = {};
-                localStorage.setItem(`searchList_${this.name}`, JSON.stringify(list));
+                if (this.cacheProxy.without) {
+                    this.cacheProxy.set(list);
+                } else {
+                    localStorage.setItem(`searchList_${this.name}`, JSON.stringify(list));
+                }
             },
             //清空
             revert() {
@@ -283,7 +310,7 @@
                             delete params[item.key];
                         })
                     }
-                    data.method( data.key,this.clearObject(params));
+                    data.method(data.key, this.clearObject(params));
                 } else {
                     data.method(data.key);
                 }

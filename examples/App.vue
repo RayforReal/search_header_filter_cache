@@ -4,6 +4,7 @@
                 :btn-list="btnList"
                 :input-list="inputList"
                 :valid-rules="validRules"
+                :cache-proxy="cacheProxy"
                 name="App">
         </search-header>
         <div style="margin-top:20px">
@@ -109,6 +110,7 @@
                     {
                         default: true,
                         label: '查询_1',
+                        className:'red-class',
                         type: 'primary',
                         key: 'query_1',
                         isSearch: true,
@@ -178,11 +180,24 @@
                         },
                     }
                 ],
+                cacheProxy:{
+                    without:true,
+                    asyncGet:false,//如果为true get函数需要添加async 返回一个promise对象到子组件
+                    get: ()=>{
+                        return JSON.parse(localStorage.getItem('searchList_App'))
+                    },
+                    set:(data)=>{
+                        console.log(data);
+                        localStorage.setItem(`searchList_App`, JSON.stringify(data));
+                    }
+                }
             }
         }
     };
 </script>
 
-<style lang="scss">
-
+<style lang="scss" >
+    .red-class{
+        background: #2680D1 !important;
+    }
 </style>
