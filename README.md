@@ -224,7 +224,7 @@
 | label | 标签文本       | string | -     | -     |
 | className | 按钮样式覆盖的全局class名       | string | -     | -     |
 | type | 按钮类型(同element-ui)       | string | -     | -     |
-| isSearch | 控制点击按钮后回调参数是否有搜索条件       | boolean | -     | false     |
+| isSearch | 控制点击按钮后回调参数是否有搜索条件(如果没有isSearch为true的按钮，则输入框和筛选按钮不展示)       | boolean | -     | false     |
 | icon | 图标class名(同element-ui)，default属性为true时生效       | string | -     | -     |
 |key | 按钮唯一值，点击按钮后回调的参数       | string | -     | -     |
 |show | 根据权限需求判断是否显示按钮       | function/boolean/string | -     | true     |

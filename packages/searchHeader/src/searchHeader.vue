@@ -11,7 +11,7 @@
             </el-button>
             <transition name="el-fade-in-linear">
                 <el-button :size="btnSize"
-                           v-show="showFiltrate&&revertBtnShow"
+                           v-show="showFiltrate&&revertBtnShow&&hasSearch"
                            @click="revert"
                            type='danger'>清空
                 </el-button>
@@ -31,12 +31,12 @@
             </el-dropdown>
         </div>
         <transition name="el-zoom-in-top">
-            <el-form v-show="showFiltrate"
+            <el-form v-show="showFiltrate&&hasSearch"
                      ref="moreSearch"
                      class="form-container"
                      :model="searchData"
-                     label-width="120px"
-                     label-position="left"
+                     label-width="auto"
+                     label-position="right"
                      :rules="validRules">
                 <template v-for="item in defaultShowList">
                     <el-form-item
@@ -70,7 +70,7 @@
                 </template>
             </el-form>
         </transition>
-        <div class="filter-container">
+        <div class="filter-container" v-show="hasSearch">
             <div @click="showFiltrate=!showFiltrate">
                 <span :style="{'color':showFiltrate?'#2680D1':''}">筛选</span>
                 <img :src="showFiltrate?onFilter:offFilter" alt="">
@@ -149,6 +149,7 @@
             },
         },
         watch: {
+            //没有输入框的时候清空按钮不显示
             'defaultShowList.length': {
                 handler(newValue) {
                     this.revertBtnShow = newValue !== 0
@@ -165,6 +166,11 @@
             this.cascadeInit();
         },
         computed: {
+            hasSearch(){
+                return this.btnList.some(item=>{
+                    return item.isSearch
+                })
+            },
             allBtnList() {
                 let arr = {
                     showBtnList: [],
