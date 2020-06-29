@@ -166,10 +166,14 @@
             this.cascadeInit();
         },
         computed: {
-            hasSearch(){
-                return this.btnList.some(item=>{
+            hasSearch() {
+                let search = this.btnList.filter(item => {
                     return item.isSearch
-                })
+                });
+                if (search && search.length === 1) {
+                    return this.checkPropShow(search[0].show)
+                }
+                return false;
             },
             allBtnList() {
                 let arr = {
@@ -185,10 +189,10 @@
         },
         methods: {
             checkPropShow(show) {
-                if(typeof (show) === "function") {
+                if (typeof (show) === "function") {
                     return show();
                 }
-                if(typeof (show) === "boolean"||typeof (show) === "number") {
+                if (typeof (show) === "boolean" || typeof (show) === "number") {
                     return show;
                 }
                 //默认不传show字段为显示
