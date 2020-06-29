@@ -1,7 +1,7 @@
 <template>
     <div class="search-header">
         <div class="btn-container">
-            <el-button v-for="item in showBtnList"
+            <el-button v-for="item in allBtnList.showBtnList"
                        :key="item.key"
                        :size="btnSize"
                        :class="item.className||''"
@@ -18,12 +18,12 @@
             </transition>
             <el-dropdown style="margin-left: 10px"
                          @command="handleCommand"
-                         v-if="hiddenBtnList.length>0">
+                         v-if="allBtnList.hiddenBtnList.length>0">
                 <el-button :size="btnSize">
                     更多<i class="el-icon-arrow-down el-icon--right"/>
                 </el-button>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for="item in hiddenBtnList"
+                    <el-dropdown-item v-for="item in allBtnList.hiddenBtnList"
                                       :command="item"
                                       :key="item.label">{{item.label}}
                     </el-dropdown-item>
@@ -104,8 +104,6 @@
                 offFilter: require('./icon/offFilter.png'),
                 filterDialogShow: false,
                 searchData: {},
-                showBtnList: [],
-                hiddenBtnList: [],
                 showFiltrate: true,
                 revertBtnShow: false,
                 cascadeList: [],
@@ -163,16 +161,32 @@
             }
         },
         created() {
-            this.dataInit();
+            this.dialogInputInit();
+            this.cascadeInit();
+        },
+        computed: {
+            allBtnList() {
+                let arr = {
+                    showBtnList: [],
+                    hiddenBtnList: []
+                };
+                this.btnList.forEach(item => {
+                    (item.default && this.checkPropShow(item.show)) && arr.showBtnList.push(item);
+                    (!item.default && this.checkPropShow(item.show)) && (arr.hiddenBtnList.push(item))
+                });
+                return arr
+            },
         },
         methods: {
-            dataInit() {
-                this.btnList.forEach(item => {
-                    (item.default && item.show && item.show()) && this.showBtnList.push(item);
-                    (!item.default && item.show && item.show()) && (this.hiddenBtnList.push(item))
-                });
-                this.dialogInputInit();
-                this.cascadeInit();
+            checkPropShow(show) {
+                if(typeof (show) === "function") {
+                    return show();
+                }
+                if(typeof (show) === "boolean"||typeof (show) === "number") {
+                    return show;
+                }
+                //默认不传show字段为显示
+                return typeof (show) === "undefined";
             },
             dialogInputInit() {
                 this.propInputList = this.inputList;

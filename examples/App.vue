@@ -10,6 +10,9 @@
         <div style="margin-top:20px">
             {{searchData}}
         </div>
+        <el-button @click="changeBtnShow"
+                   type='danger'>动态改变第一个查询按钮显隐
+        </el-button>
     </div>
 </template>
 
@@ -110,14 +113,12 @@
                     {
                         default: true,
                         label: '查询_1',
-                        className:'red-class',
+                        className: 'red-class',
                         type: 'primary',
                         key: 'query_1',
                         isSearch: true,
                         icon: 'el-icon-zoom-in',
-                        show: () => {
-                            return true
-                        },
+                        show: true,
                         method: (param, data) => {
                             this.searchData = data;
                             console.log(data, param, '查询');
@@ -128,9 +129,7 @@
                         label: '导出_1',
                         type: 'success',
                         key: 'import_1',
-                        show: () => {
-                            return false
-                        },
+                        show: 0,
                         method: (param) => {
                             console.log(param, '导出_1');
                         },
@@ -141,21 +140,16 @@
                         icon: 'el-icon-plus',
                         type: 'success',
                         key: 'add_1',
-                        show: () => {
-                            return true
-                        },
+                        show: 1,
                         method: (param) => {
                             console.log(param, '新增_1');
                         },
                     },
                     {
-                        default: true,
                         label: '查询_2',
                         key: 'query_2',
                         type: 'primary',
-                        show: () => {
-                            return true
-                        },
+                        show: true,
                         method: (param) => {
                             console.log(param, '查询_2');
                         },
@@ -180,24 +174,29 @@
                         },
                     }
                 ],
-                cacheProxy:{
-                    without:true,
-                    asyncGet:false,//如果为true get函数需要添加async 返回一个promise对象到子组件
-                    get: ()=>{
+                cacheProxy: {
+                    without: true,
+                    asyncGet: false,//如果为true get函数需要添加async 返回一个promise对象到子组件
+                    get: () => {
                         return JSON.parse(localStorage.getItem('searchList_App'))
                     },
-                    set:(data)=>{
+                    set: (data) => {
                         console.log(data);
                         localStorage.setItem(`searchList_App`, JSON.stringify(data));
                     }
                 }
             }
+        },
+        methods: {
+            changeBtnShow() {
+                this.btnList[0].show = !this.btnList[0].show
+            }
         }
     };
 </script>
 
-<style lang="scss" >
-    .red-class{
+<style lang="scss">
+    .red-class {
         background: #2680D1 !important;
     }
 </style>
