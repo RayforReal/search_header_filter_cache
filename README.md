@@ -184,9 +184,7 @@
             label: '新增',
             type: 'success',
             key: 'add',
-            show: () => {
-                return true
-            },
+            show: 0,
             method: (param) => {
                 console.log(param, '新增');
             },
@@ -195,11 +193,18 @@
             label: '导出',
             type: 'success',
             key: 'import',
-            show: () => {
-                return true
-            },
+            show: 1,
             method: (param) => {
                 console.log(param, '导出');
+            },
+        },
+        {
+            label: '多选',
+            type: 'success',
+            key: 'select',
+            show: true,
+            method: (param) => {
+                console.log(param, '多选');
             },
         },
     ],
@@ -222,7 +227,7 @@
 | isSearch | 控制点击按钮后回调参数是否有搜索条件       | boolean | -     | false     |
 | icon | 图标class名(同element-ui)，default属性为true时生效       | string | -     | -     |
 |key | 按钮唯一值，点击按钮后回调的参数       | string | -     | -     |
-|show | 根据权限需求判断是否显示按钮       | function | -     | false     |
+|show | 根据权限需求判断是否显示按钮       | function/boolean/string | -     | true     |
 |method | 按钮点时的回调，第一个参数为点击按钮的key，isSearch为true时会有第二个参数为输入框所有值      | string | -     | -     |
 
 --- 
