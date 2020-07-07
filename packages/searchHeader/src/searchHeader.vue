@@ -273,10 +273,6 @@
                     localStorage.setItem(`searchList_${this.name}`, JSON.stringify(list));
                 }
             },
-            //清空
-            revert() {
-                this.searchData = {};
-            },
             cascadeChange(ele) {
                 // 级联最后一个不再请求数据
                 if (!ele.nextKey) {
@@ -300,6 +296,16 @@
                     vm.$set(vm.cascadeSelectList, data.key, res);
                     vm.$forceUpdate();
                 })
+            },
+            //清空
+            revert() {
+                this.searchData = {};
+                let search = this.btnList.filter(item => {
+                    return item.isSearch
+                });
+                if (search && search.length > 0) {
+                    this.operationClick(search[0])
+                }
             },
             //按钮点击事件
             operationClick(data) {
