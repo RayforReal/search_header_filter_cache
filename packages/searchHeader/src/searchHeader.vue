@@ -72,11 +72,11 @@
         </transition>
         <div class="filter-container" v-show="hasSearch">
             <div @click="showFiltrate=!showFiltrate">
-                <span :style="{'color':showFiltrate?'#2680D1':''}">筛1选</span>
+                <span :style="{'color':showFiltrate?'#2680D1':''}">筛选</span>
                 <img :src="showFiltrate?onFilter:offFilter" alt="">
             </div>
             <div @click="filterDialogShow=true">
-                <span>2增加过滤条件</span>
+                <span>增加过滤条件</span>
                 <img src="./icon/add.png" alt="">
             </div>
         </div>

@@ -13,6 +13,9 @@
         <el-button @click="changeBtnShow"
                    type='danger'>动态改变第一个查询按钮显隐
         </el-button>
+        <el-button @click="deleteLast"
+                   type='danger'>删除最后一个input
+        </el-button>
     </div>
 </template>
 
@@ -188,6 +191,10 @@
             }
         },
         methods: {
+            deleteLast(){
+                this.inputList.shift(0,1);
+                console.log(this.inputList);
+            },
             changeBtnShow() {
                 this.btnList[0].show = !this.btnList[0].show
             }

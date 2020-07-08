@@ -90,9 +90,18 @@
                     let count = 0;
                     //是否已经有缓存 有缓存半选状态逻辑可以通过缓存数据判断
                     //有缓存 就是有序
-                    if (this.cacheList) {
+                    if (this.cacheList.length > 0) {
                         count = this.cacheList.length;
-                        this.checkedInput = this.cacheList;
+                        //有可能缓存的输入框里面有的没有了 过滤一次
+                        let empty;
+                        this.inputList.forEach(item => {
+                            empty = this.cacheList.filter(e => {
+                                return e === item.label
+                            });
+                            if (empty && empty.length > 0) {
+                                this.checkedInput.push(empty[0])
+                            }
+                        });
                     } else {
                         this.inputList.forEach(item => {
                             if (item.default) {
@@ -100,7 +109,6 @@
                                 this.checkedInput.push(item.label);
                             }
                         });
-
                     }
                     this.isIndeterminate = count > 0 && count < this.inputList.length;
                     this.checkAll = count === this.inputList.length;
@@ -216,6 +224,7 @@
     /deep/ .el-button + .el-button {
         margin-left: 8px;
     }
+
     /deep/ .el-checkbox__label {
         padding-left: 8px;
     }
