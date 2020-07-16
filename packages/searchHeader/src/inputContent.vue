@@ -3,7 +3,7 @@
         <el-input
                 v-if="config.type==='input'"
                 :placeholder="`请输入${config.label}`"
-                v-model="inputVal"
+                v-model.trim="inputVal"
                 clearable>
         </el-input>
         <el-select v-model="inputVal"
