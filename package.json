@@ -1,7 +1,7 @@
 {
     "name": "search_header_filter_cache",
     "version": "0.2.6",
-    "description":"列表页搜索可选择过滤输入框(VUE)",
+    "description": "列表页搜索可选择过滤输入框(VUE)",
     "main": "lib/searchHeader.umd.min.js",
     "keyword": "searchHeader inputFilter searchBox",
     "private": false,
@@ -11,7 +11,6 @@
         "lint": "vue-cli-service lint",
         "lib": "vue-cli-service build --target lib --name searchHeader --dest lib packages/index.js"
     },
-
     "dependencies": {
         "element-ui": "^2.13.2",
         "vue": "^2.6.11"
@@ -28,8 +27,8 @@
         "node-sass": "^4.12.0",
         "prettier": "^1.19.1",
         "sass-loader": "^8.0.2",
-        "vuedraggable": "^2.23.2",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.11",
+        "vuedraggable": "^2.23.2"
     },
     "eslintConfig": {
         "root": true,
