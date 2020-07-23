@@ -9,13 +9,6 @@
                        :icon="item.icon||''"
                        :type='item.type'>{{item.label}}
             </el-button>
-            <transition name="el-fade-in-linear">
-                <el-button :size="btnSize"
-                           v-show="showFiltrate&&revertBtnShow&&hasSearch"
-                           @click="revert"
-                           type='danger'>清空
-                </el-button>
-            </transition>
             <el-dropdown style="margin-left: 10px"
                          @command="handleCommand"
                          v-if="allBtnList.hiddenBtnList.length>0">
@@ -113,6 +106,15 @@
             }
         },
         props: {
+            revertConfig: {
+                type: Object,
+                default: () => {
+                    return {
+                        class: '',
+                        index: null
+                    }
+                }
+            },
             cacheProxy: {
                 type: Object,
                 default: () => {
@@ -184,6 +186,18 @@
                     (item.default && this.checkPropShow(item.show)) && arr.showBtnList.push(item);
                     (!item.default && this.checkPropShow(item.show)) && (arr.hiddenBtnList.push(item))
                 });
+                if(this.showFiltrate && this.revertBtnShow && this.hasSearch){
+                    let index = this.revertConfig.index !== undefined ? this.revertConfig.index : arr.showBtnList.length;
+                    arr.showBtnList.splice(index, 0, {
+                        label: '清空',
+                        key: 'revert',
+                        type: 'danger',
+                        className: this.revertConfig.class || '',
+                        method: () => {
+                            this.revert();
+                        },
+                    });
+                }
                 return arr
             },
         },

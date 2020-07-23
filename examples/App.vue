@@ -4,6 +4,10 @@
                 :btn-list="btnList"
                 :input-list="inputList"
                 :valid-rules="validRules"
+                :revertConfig="{
+                    class:'revert-class',
+                    index:0
+                }"
                 :cache-proxy="cacheProxy"
                 name="App">
         </search-header>
@@ -191,8 +195,8 @@
             }
         },
         methods: {
-            deleteLast(){
-                this.inputList.shift(0,1);
+            deleteLast() {
+                this.inputList.shift(0, 1);
                 console.log(this.inputList);
             },
             changeBtnShow() {
@@ -205,5 +209,9 @@
 <style lang="scss">
     .red-class {
         background: #2680D1 !important;
+    }
+
+    .revert-class {
+        background-color: darkblue !important;
     }
 </style>
