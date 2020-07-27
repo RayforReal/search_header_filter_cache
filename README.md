@@ -221,6 +221,7 @@
 | 参数       | 说明               | 类型   | 可选值 | 默认值 |
 |------------|--------------------|--------|-------|-------|
 | default | 需要默认展示的按钮 | boolean | -     | false     |
+| isNewline | 需要换行展示的按钮 | boolean | -     | false     |
 | label | 标签文本       | string | -     | -     |
 | className | 按钮样式覆盖的全局class名       | string | -     | -     |
 | type | 按钮类型(同element-ui)       | string | -     | -     |

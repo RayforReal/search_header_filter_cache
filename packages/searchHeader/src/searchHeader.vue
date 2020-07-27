@@ -63,14 +63,26 @@
                 </template>
             </el-form>
         </transition>
-        <div class="filter-container" v-show="hasSearch">
-            <div @click="showFiltrate=!showFiltrate">
-                <span :style="{'color':showFiltrate?'#2680D1':''}">筛选</span>
-                <img :src="showFiltrate?onFilter:offFilter" alt="">
+        <div class="filter-container">
+            <div class="left">
+                <div @click="showFiltrate=!showFiltrate" v-show="hasSearch" class="left">
+                    <span :style="{'color':showFiltrate?'#2680D1':''}">筛选</span>
+                    <img :src="showFiltrate?onFilter:offFilter" alt="">
+                </div>
+                <div @click="filterDialogShow=true" v-show="hasSearch" class="left">
+                    <span>增加过滤条件</span>
+                    <img src="./icon/add.png" alt="">
+                </div>
             </div>
-            <div @click="filterDialogShow=true">
-                <span>增加过滤条件</span>
-                <img src="./icon/add.png" alt="">
+            <div>
+                <el-button v-for="item in allBtnList.newlineBtn"
+                           :key="item.key"
+                           :size="btnSize"
+                           :class="item.className||''"
+                           @click="operationClick(item)"
+                           :icon="item.icon||''"
+                           :type='item.type'>{{item.label}}
+                </el-button>
             </div>
         </div>
         <filter-dialog
@@ -180,13 +192,15 @@
             allBtnList() {
                 let arr = {
                     showBtnList: [],
-                    hiddenBtnList: []
+                    hiddenBtnList: [],
+                    newlineBtn: []
                 };
                 this.btnList.forEach(item => {
-                    (item.default && this.checkPropShow(item.show)) && arr.showBtnList.push(item);
-                    (!item.default && this.checkPropShow(item.show)) && (arr.hiddenBtnList.push(item))
+                    (item.default && !item.isNewline && this.checkPropShow(item.show)) && arr.showBtnList.push(item);
+                    (!item.default && !item.isNewline && this.checkPropShow(item.show)) && (arr.hiddenBtnList.push(item));
+                    (item.isNewline && this.checkPropShow(item.show)) && (arr.newlineBtn.push(item));
                 });
-                if(this.showFiltrate && this.revertBtnShow && this.hasSearch){
+                if (this.showFiltrate && this.revertBtnShow && this.hasSearch) {
                     let index = this.revertConfig.index !== undefined ? this.revertConfig.index : arr.showBtnList.length;
                     arr.showBtnList.splice(index, 0, {
                         label: '清空',
@@ -401,8 +415,10 @@
         .filter-container {
             font-size: 14px;
             display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
 
-            div {
+            .left {
                 cursor: pointer;
                 display: flex;
                 align-items: center;

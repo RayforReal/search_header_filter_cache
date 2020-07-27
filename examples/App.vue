@@ -172,6 +172,7 @@
                     {
                         label: '新增_2',
                         type: 'success',
+
                         key: 'add_2',
                         show: () => {
                             return true
@@ -179,7 +180,20 @@
                         method: (param) => {
                             console.log(param, '新增_2');
                         },
-                    }
+                    },
+                    {
+                        isNewline:true,
+                        label: '设置',
+                        type: 'success',
+                        key: 'setUp',
+                        icon: 'el-icon-zoom-in',
+                        show: () => {
+                            return true
+                        },
+                        method: (param) => {
+                            console.log(param, '设置');
+                        },
+                    },
                 ],
                 cacheProxy: {
                     without: true,
