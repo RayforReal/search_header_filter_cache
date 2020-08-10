@@ -33,6 +33,7 @@
                      :rules="validRules">
                 <template v-for="item in defaultShowList">
                     <el-form-item
+                            :class="item.className||''"
                             :label="item.label"
                             v-if="item.type!=='cascade'"
                             :prop="item.key"

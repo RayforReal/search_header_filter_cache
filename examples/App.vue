@@ -35,6 +35,7 @@
                         label: '下拉框异步请求',
                         key: 'select_async',
                         type: 'select',
+                        className:'test-class',
                         query: true,
                         list: async () => {
                             return [];
@@ -227,5 +228,10 @@
 
     .revert-class {
         background-color: darkblue !important;
+    }
+
+    .test-class{
+        color: red;
+        border: 1px solid greenyellow;
     }
 </style>
