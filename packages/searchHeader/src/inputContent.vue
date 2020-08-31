@@ -57,76 +57,78 @@
 
 
 <script>
-    export default {
-        name: 'inputContent',
-        props: {
-            config: {
-                type: Object
-            },
-            value: {}
+export default {
+    name: 'inputContent',
+    props: {
+        config: {
+            type: Object
         },
-        data() {
-            return {
-                searchList: [],
-                inputVal: '',
-                rangTime: {startTime: "", endTime: ''},
-                pickerStartOptions: {
-                    disabledDate: time => {
-                        if (this.rangTime.endTime) {
-                            return time.getTime() > new Date(this.rangTime.endTime);
-                        }
-                    }
-                },
-                pickerEndOptions: {
-                    disabledDate: time => {
-                        if (this.rangTime.startTime) {
-                            return time.getTime() < new Date(this.rangTime.startTime) - 24 * 40 * 60 * 1000;
-                        }
+        value: {}
+    },
+    data() {
+        return {
+            searchList: [],
+            inputVal: '',
+            rangTime: {startTime: "", endTime: ''},
+            pickerStartOptions: {
+                disabledDate: time => {
+                    if (this.rangTime.endTime) {
+                        return time.getTime() > new Date(this.rangTime.endTime);
                     }
                 }
-            }
-        },
-        watch: {
-            rangTime: {
-                handler() {
-                    if (this.config.type === 'dateRange') {
-                        this.$emit('update:value', {
-                            [this.config.value[0]]: this.rangTime.startTime,
-                            [this.config.value[1]]: this.rangTime.endTime
-                        });
+            },
+            pickerEndOptions: {
+                disabledDate: time => {
+                    if (this.rangTime.startTime) {
+                        return time.getTime() < new Date(this.rangTime.startTime) - 24 * 40 * 60 * 1000;
                     }
-                },
-                deep: true
-            },
-            inputVal() {
-                this.$emit('update:value', this.inputVal)
-            },
-            //父组件关闭的时候清空searchData清空 当前组件输入框也要清空
-            value() {
-                if (!this.value) {
-                    this.inputVal = '';
-                    this.rangTime = {startTime: "", endTime: ''}
-                }
-            }
-        },
-        mounted() {
-            if (this.config.type === 'select') {
-                if (this.config.query) {
-                    this.config.list().then(res => {
-                        this.searchList = res
-                    })
-                } else {
-                    this.searchList = this.config.list;
                 }
             }
         }
+    },
+    watch: {
+        rangTime: {
+            handler() {
+                if (this.config.type === 'dateRange') {
+                    this.$emit('update:value', {
+                        [this.config.value[0]]: this.rangTime.startTime,
+                        [this.config.value[1]]: this.rangTime.endTime
+                    });
+                }
+            },
+            deep: true
+        },
+        inputVal() {
+            this.$emit('update:value', this.inputVal)
+        },
+        //父组件关闭的时候清空searchData清空 当前组件输入框也要清空
+        value() {
+            if (!this.value) {
+                this.inputVal = '';
+                this.rangTime = {startTime: "", endTime: ''}
+            } else {
+                this.inputVal = this.value;
+            }
+        }
+    },
+    mounted() {
+        if (this.config.type === 'select') {
+            if (this.config.query) {
+                this.config.list().then(res => {
+                    this.searchList = res
+                })
+            } else {
+                this.searchList = this.config.list;
+            }
+        }
     }
+}
 </script>
 
 <style lang="scss" scoped>
-    .time-range-class {
-        display: flex;
-        justify-content: space-between
-    }
+.time-range-class {
+    display: flex;
+    justify-content: space-between
+}
 </style>
 

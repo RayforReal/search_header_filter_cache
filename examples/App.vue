@@ -1,6 +1,7 @@
 <template>
     <div>
         <search-header
+                ref="searchHeader"
                 :btn-list="btnList"
                 :input-list="inputList"
                 :valid-rules="validRules"
@@ -20,6 +21,9 @@
         <el-button @click="deleteLast"
                    type='danger'>删除最后一个input
         </el-button>
+        <el-button @click="setDefault"
+                   type='danger'>初始页面默认查询值
+        </el-button>
     </div>
 </template>
 
@@ -32,13 +36,14 @@
                 searchData: {},
                 inputList: [
                     {
+                        default: true,
                         label: '下拉框异步请求',
                         key: 'select_async',
                         type: 'select',
                         className:'test-class',
                         query: true,
                         list: async () => {
-                            return [];
+                            return [{label: '未送审', value: 1}, {label: '待审核', value: 2}];
                         }
                     },
                     {
@@ -216,6 +221,9 @@
             },
             changeBtnShow() {
                 this.btnList[0].show = !this.btnList[0].show
+            },
+            setDefault(){
+                this.$refs.searchHeader.setDefaultVal({'select_async':1,'aaa':'初始值初始值'})
             }
         }
     };

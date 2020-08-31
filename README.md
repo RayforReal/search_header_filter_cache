@@ -18,6 +18,7 @@
 
 ``` 
     <search-header
+        ref="searchHeader"
         :btn-list="btnList"
         :input-list="inputList"
         :valid-rules="validRules"
@@ -251,6 +252,12 @@ validRules: {
     |------------|--------------------|--------|-------|-------|
     | class | 清空按钮样式 | string | -     | -     |
     | index | 清空按钮显示位置index       | number | -     | 显示按钮的最后一个位置     |
+```
+
+## method
+```
+      setDefaultVal  初始化页面默认输入框值 不支持时间 目前只支持input类型的赋值
+      this.$refs.searchHeader.setDefaultVal({'select_async':1,'aaa':'初始值初始值'})
 ```
 
 
