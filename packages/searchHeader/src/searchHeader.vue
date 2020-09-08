@@ -105,22 +105,6 @@ import filterDialog from "./filterDialog";
 export default {
     name: "searchHeader",
     components: {inputContent, filterDialog},
-    data() {
-        return {
-            cacheList: [],
-            onFilter: require('./icon/onFilter.png'),
-            offFilter: require('./icon/offFilter.png'),
-            filterDialogShow: false,
-            searchData: {},
-            showFiltrate: true,
-            revertBtnShow: false,
-            cascadeList: [],
-            cascadeSelectList: {},
-            defaultShowList: [],
-            propInputList: [],
-            needDisabled: []
-        }
-    },
     props: {
         revertConfig: {
             type: Object,
@@ -166,6 +150,22 @@ export default {
             }
         }
     },
+    data() {
+        return {
+            cacheList: [],
+            onFilter: require('./icon/onFilter.png'),
+            offFilter: require('./icon/offFilter.png'),
+            filterDialogShow: false,
+            searchData: {},
+            showFiltrate: true,
+            revertBtnShow: false,
+            cascadeList: [],
+            cascadeSelectList: {},
+            defaultShowList: [],
+            propInputList: [],
+            needDisabled: []
+        }
+    },
     watch: {
         //没有输入框的时候清空按钮不显示
         'defaultShowList.length': {
@@ -182,6 +182,7 @@ export default {
     created() {
         this.dialogInputInit();
         this.cascadeInit();
+        this.initDisabled();
     },
     computed: {
         hasSearch() {
@@ -220,6 +221,14 @@ export default {
         },
     },
     methods: {
+        initDisabled(){
+            let list = this.btnList.filter(item => {
+                return item.disabled
+            })
+            list.forEach(item => {
+                this.needDisabled.push(item.key)
+            })
+        },
         checkPropShow(show) {
             if (typeof (show) === "function") {
                 return show();

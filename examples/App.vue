@@ -142,6 +142,7 @@
                             this.searchData = data;
                             console.log(data, param, '查询');
                         },
+                        disabled:true
                     },
                     {
                         default: true,
