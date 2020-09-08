@@ -24,11 +24,11 @@
         <el-button @click="setDefault"
                    type='danger'>初始页面默认查询值
         </el-button>
-        <el-button @click="changeBtnStatus('query_1')"
-                   type='danger'>动态禁用查询_1按钮
+        <el-button @click="setBtnStatus()"
+                   type='danger'>动态禁用按钮
         </el-button>
-        <el-button @click="changeBtnStatus('import_2')"
-                   type='danger'>动态禁用导出_2按钮
+        <el-button @click="clearBtnStatus()"
+                   type='danger'>动态释放按钮
         </el-button>
     </div>
 </template>
@@ -230,9 +230,12 @@
             setDefault(){
                 this.$refs.searchHeader.setDefaultVal({'select_async':1,'aaa':'初始值初始值'})
             },
-            changeBtnStatus(key){
-                this.$refs.searchHeader.changeBtnStatus(key)
+            setBtnStatus(){
+                this.$refs.searchHeader.setBtnDisabled(['query_1','add_2'])
             },
+            clearBtnStatus(){
+                this.$refs.searchHeader.clearBtnDisabled(['add_2'])
+            }
         }
     };
 </script>

@@ -314,11 +314,18 @@ export default {
             })[0];
             search.method(search.key, this.clearObject(this.searchData));
         },
-        changeBtnStatus(key) {
-            if (this.needDisabled.includes(key)) {
-                this.needDisabled.splice(this.needDisabled.indexOf(key), 1);
-            } else {
-                this.needDisabled.push(key);
+        setBtnDisabled(keyArr) {
+            this.needDisabled = [...this.needDisabled, ...keyArr];
+        },
+        clearBtnDisabled(keyArr) {
+            keyArr.forEach(item => {
+                this.removeItem(item)
+            })
+        },
+        removeItem(val) {
+            let index = this.needDisabled.indexOf(val);
+            if (index > -1) {
+                this.needDisabled.splice(index, 1);
             }
         },
         handleCommand({method, key}) {
