@@ -4,6 +4,7 @@
             <el-button v-for="item in allBtnList.showBtnList"
                        :key="item.key"
                        :size="btnSize"
+                       :disabled="isDisabled(item.key)"
                        :class="item.className||''"
                        @click="operationClick(item)"
                        :icon="item.icon||''"
@@ -18,6 +19,7 @@
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item v-for="item in allBtnList.hiddenBtnList"
                                       :command="item"
+                                      :disabled="isDisabled(item.key)"
                                       :key="item.label">{{ item.label }}
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -116,6 +118,7 @@ export default {
             cascadeSelectList: {},
             defaultShowList: [],
             propInputList: [],
+            needDisabled: []
         }
     },
     props: {
@@ -311,6 +314,13 @@ export default {
             })[0];
             search.method(search.key, this.clearObject(this.searchData));
         },
+        changeBtnStatus(key) {
+            if (this.needDisabled.includes(key)) {
+                this.needDisabled.splice(this.needDisabled.indexOf(key), 1);
+            } else {
+                this.needDisabled.push(key);
+            }
+        },
         handleCommand({method, key}) {
             method(key);
         },
@@ -364,6 +374,9 @@ export default {
             if (search && search.length > 0) {
                 this.operationClick(search[0])
             }
+        },
+        isDisabled(key) {
+            return this.needDisabled.includes(key);
         },
         //按钮点击事件
         operationClick(data) {

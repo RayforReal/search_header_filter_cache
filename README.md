@@ -258,6 +258,8 @@ validRules: {
 ```
       setDefaultVal  初始化页面默认输入框值 不支持时间 目前只支持input类型的赋值
       this.$refs.searchHeader.setDefaultVal({'select_async':1,'aaa':'初始值初始值'})
+
+      changeBtnStatus  动态修改某个按钮禁用状态 参数为需要改变按钮的key
 ```
 
 
