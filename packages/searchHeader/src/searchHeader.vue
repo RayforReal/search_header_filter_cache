@@ -41,6 +41,7 @@
                             :prop="item.key"
                             :key="item.key">
                         <input-content
+                                ref="inputContent"
                                 :config="item"
                                 :value.sync="searchData[item.key]">
                         </input-content>
@@ -228,6 +229,14 @@ export default {
             list.forEach(item => {
                 this.needDisabled.push(item.key)
             })
+        },
+        setListData(data){
+            let el=this.$refs.inputContent.filter(item=>{
+                return item.config.key===data.key
+            })
+            if(el.length>0){
+                el[0].changeList(data);
+            }
         },
         checkPropShow(show) {
             if (typeof (show) === "function") {

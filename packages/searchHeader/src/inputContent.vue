@@ -111,6 +111,17 @@ export default {
             }
         }
     },
+    methods:{
+        changeList(data){
+            if (data.query) {
+                data.list().then(res => {
+                    this.searchList = res
+                })
+            } else {
+                this.searchList = data.list;
+            }
+        }
+    },
     mounted() {
         if (this.config.type === 'select') {
             if (this.config.query) {

@@ -260,6 +260,9 @@ validRules: {
       this.$refs.searchHeader.setDefaultVal({'select_async':1,'aaa':'初始值初始值'})
 
       changeBtnStatus  动态修改某个按钮禁用状态 参数为需要改变按钮的key
+
+      setListData 动态修改select下拉列表数据 
+      key：需要改变列表的key  ； query 是否为异步请求；  list：异步function 或者纯 数组
 ```
 
 

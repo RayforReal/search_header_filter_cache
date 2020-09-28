@@ -30,6 +30,9 @@
         <el-button @click="clearBtnStatus()"
                    type='danger'>动态释放按钮
         </el-button>
+        <el-button @click="changeListData()"
+                   type='danger'>动态改变下拉框异步请求List
+        </el-button>
     </div>
 </template>
 
@@ -236,6 +239,15 @@
             },
             clearBtnStatus(){
                 this.$refs.searchHeader.clearBtnDisabled(['add_2'])
+            },
+            changeListData(){
+                this.$refs.searchHeader.setListData({
+                    key:'select_async',
+                    query:true,
+                    list: async () => {
+                        return [{label: '未1送审', value: 1}, {label: '待1审核', value: 2}];
+                    }
+                })
             }
         }
     };
