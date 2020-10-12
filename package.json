@@ -1,6 +1,6 @@
 {
     "name": "search_header_filter_cache",
-    "version": "0.2.18",
+    "version": "0.2.19",
     "description": "列表页搜索可选择过滤输入框(VUE)",
     "main": "lib/searchHeader.umd.min.js",
     "keyword": "searchHeader inputFilter searchBox",
