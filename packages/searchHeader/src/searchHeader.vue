@@ -92,7 +92,7 @@
         </div>
         <filter-dialog
                 :name="name"
-                @sure-filter="sureFilter"
+                @sureFilter="sureFilter"
                 :cache-list="cacheList"
                 @checkedInput="checkedInput"
                 :input-list="propInputList"

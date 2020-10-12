@@ -5,6 +5,7 @@
                 :btn-list="btnList"
                 :input-list="inputList"
                 :valid-rules="validRules"
+                @sureFilter="suerFilter"
                 :revertConfig="{
                     class:'revert-class',
                     index:0
@@ -248,6 +249,9 @@
                         return [{label: '未1送审', value: 1}, {label: '待1审核', value: 2}];
                     }
                 })
+            },
+            suerFilter(data){
+                console.log(data);
             }
         }
     };

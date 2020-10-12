@@ -144,12 +144,12 @@
                 this.checkedInput.splice(index, 1);
                 this.handleCheckedInputsChange(this.checkedInput);
             },
-            query() {
-                let newLabel=this.checkedInput.filter(item=>{
+             query() {
+                let newLabel= this.checkedInput.filter(item=>{
                        return !this.cacheCheckedInput.includes(item)
                 })
-                this.$emit('checkedInput', {list:this.checkedInput,newLabel});
                 this.$emit('sureFilter',newLabel)
+                this.$emit('checkedInput', {list:this.checkedInput,newLabel});
                 this.close();
             },
             close() {
