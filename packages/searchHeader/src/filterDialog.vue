@@ -81,7 +81,10 @@
                 dragIndex: 0,
                 checkAll: false,
                 checkedInput: [],
-                isIndeterminate: false
+                isIndeterminate: false,
+                // 缓存打开dialog刚打开选中的选项 点击确认时 对比 新勾选的
+                // 然后抛给父亲 如果有select就重新请求下拉数据
+                cacheCheckedInput:[]
             }
         },
         watch: {
@@ -112,6 +115,7 @@
                     }
                     this.isIndeterminate = count > 0 && count < this.inputList.length;
                     this.checkAll = count === this.inputList.length;
+                    [...this.cacheCheckedInput] = this.checkedInput;
                 }
             }
         },
@@ -141,7 +145,10 @@
                 this.handleCheckedInputsChange(this.checkedInput);
             },
             query() {
-                this.$emit('checkedInput', this.checkedInput);
+                let newLabel=this.checkedInput.filter(item=>{
+                       return !this.cacheCheckedInput.includes(item)
+                })
+                this.$emit('checkedInput', {list:this.checkedInput,newLabel});
                 this.close();
             },
             close() {

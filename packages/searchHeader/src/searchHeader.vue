@@ -46,6 +46,7 @@
                                 :value.sync="searchData[item.key]">
                         </input-content>
                     </el-form-item>
+                    <!-- 级联 -->
                     <template v-for="ele in cascadeList" v-else>
                         <el-form-item
                                 :label="ele.label"
@@ -349,7 +350,7 @@ export default {
         handleCommand({method, key}) {
             method(key);
         },
-        checkedInput(list) {
+        checkedInput({list,newLabel}) {
             this.defaultShowList = [];
             list.forEach(item => {
                 this.inputList.forEach(e => {
@@ -358,6 +359,9 @@ export default {
                     }
                 });
             });
+            this.$refs.inputContent.forEach(item=>{
+                item.upDataList(newLabel);
+            })
             this.cascadeInit();
             this.searchData = {};
             if (this.cacheProxy.without) {

@@ -120,18 +120,27 @@ export default {
             } else {
                 this.searchList = data.list;
             }
+        },
+        selectDataList(){
+            if (this.config.type === 'select') {
+                if (this.config.query) {
+                    this.config.list().then(res => {
+                        this.searchList = res
+                    })
+                } else {
+                    this.searchList = this.config.list;
+                }
+            }
+        },
+        // dialog 点击确认后 跟新下拉数据
+        upDataList(label){
+            if(label.includes(this.config.label)){
+                this.selectDataList();
+            }
         }
     },
     mounted() {
-        if (this.config.type === 'select') {
-            if (this.config.query) {
-                this.config.list().then(res => {
-                    this.searchList = res
-                })
-            } else {
-                this.searchList = this.config.list;
-            }
-        }
+        this.selectDataList();
     }
 }
 </script>
