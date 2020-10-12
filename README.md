@@ -262,7 +262,9 @@ validRules: {
       changeBtnStatus  动态修改某个按钮禁用状态 参数为需要改变按钮的key
 
       setListData 动态修改select下拉列表数据 
-      key：需要改变列表的key  ； query 是否为异步请求；  list：异步function 或者纯 数组
+      key：需要改变列表的key  ； query **是否为异步请求；  list：异步function 或者纯 数组
+        
+      sureFilter 筛选时点击确认事件 参数包含对比下来新增选择的
 ```
 
 

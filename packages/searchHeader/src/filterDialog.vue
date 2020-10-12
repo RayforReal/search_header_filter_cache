@@ -149,6 +149,7 @@
                        return !this.cacheCheckedInput.includes(item)
                 })
                 this.$emit('checkedInput', {list:this.checkedInput,newLabel});
+                this.$emit('sureFilter',newLabel)
                 this.close();
             },
             close() {

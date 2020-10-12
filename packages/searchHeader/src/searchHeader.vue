@@ -92,6 +92,7 @@
         </div>
         <filter-dialog
                 :name="name"
+                @sure-filter="sureFilter"
                 :cache-list="cacheList"
                 @checkedInput="checkedInput"
                 :input-list="propInputList"
@@ -406,6 +407,9 @@ export default {
         },
         isDisabled(key) {
             return this.needDisabled.includes(key);
+        },
+        sureFilter(newLabel){
+            this.$emit('sureFilter',newLabel);
         },
         //按钮点击事件
         operationClick(data) {
