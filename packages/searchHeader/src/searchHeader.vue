@@ -92,7 +92,6 @@
         </div>
         <filter-dialog
                 :name="name"
-                @sureFilter="sureFilter"
                 :cache-list="cacheList"
                 @checkedInput="checkedInput"
                 :input-list="propInputList"
@@ -224,7 +223,7 @@ export default {
         },
     },
     methods: {
-        initDisabled(){
+        initDisabled() {
             let list = this.btnList.filter(item => {
                 return item.disabled
             })
@@ -232,11 +231,11 @@ export default {
                 this.needDisabled.push(item.key)
             })
         },
-        setListData(data){
-            let el=this.$refs.inputContent.filter(item=>{
-                return item.config.key===data.key
+        setListData(data) {
+            let el = this.$refs.inputContent.filter(item => {
+                return item.config.key === data.key
             })
-            if(el.length>0){
+            if (el.length > 0) {
                 el[0].changeList(data);
             }
         },
@@ -351,7 +350,7 @@ export default {
         handleCommand({method, key}) {
             method(key);
         },
-        checkedInput({list,newLabel}) {
+        checkedInput({list, newLabel}) {
             this.defaultShowList = [];
             list.forEach(item => {
                 this.inputList.forEach(e => {
@@ -360,7 +359,7 @@ export default {
                     }
                 });
             });
-            this.$refs.inputContent.forEach(item=>{
+            this.$refs.inputContent.forEach(item => {
                 item.upDataList(newLabel);
             })
             this.cascadeInit();
@@ -370,6 +369,9 @@ export default {
             } else {
                 localStorage.setItem(`searchList_${this.name}`, JSON.stringify(list));
             }
+            this.$nextTick(() => {
+                this.$emit('sureFilter', newLabel);
+            })
         },
         cascadeChange(ele) {
             // 级联最后一个不再请求数据
@@ -407,9 +409,6 @@ export default {
         },
         isDisabled(key) {
             return this.needDisabled.includes(key);
-        },
-        sureFilter(newLabel){
-            this.$emit('sureFilter',newLabel);
         },
         //按钮点击事件
         operationClick(data) {
