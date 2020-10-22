@@ -103,7 +103,7 @@ export default {
         },
         //父组件关闭的时候清空searchData清空 当前组件输入框也要清空
         value() {
-            if (!this.value) {
+            if (!this.value&&this.value!==0) {
                 this.inputVal = '';
                 this.rangTime = {startTime: "", endTime: ''}
             } else {

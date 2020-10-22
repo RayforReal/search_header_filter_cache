@@ -53,7 +53,7 @@
                         className:'test-class',
                         query: true,
                         list: async () => {
-                            return [{label: '未送审', value: 1}, {label: '待审核', value: 2}];
+                            return [{label: '未送审', value: 0}, {label: '待审核', value: 1}];
                         }
                     },
                     {
