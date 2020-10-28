@@ -147,7 +147,7 @@
 | 参数  | 说明                                        | 类型           | 可选值        | 默认值 |
 |-------|---------------------------------------------|----------------|--------------|-------|
 | default   | 初始化时需要默认展示的输入框                               | boolean              | -            | false     |
-| type  | 输入框类型                                   | string         | select/input/date/datetime/dateRange/cascade | input |
+| type  | 输入框类型                                   | string         | select/input/date/datetime/dateRange/cascade/remote | input |
 | key  | 输入框值的属性名                                  | string         | - | - |
 | value  | type为‘dateRange’选择时间段必填，数组第一个字符串为查询暴露出去的开始时间属性名，第二个为结束时间属性名  | array         | - | - |
 | query | 下拉数据是否是异步请求，若为true，list必须为回调请求函数 | boolean        | -            | false |

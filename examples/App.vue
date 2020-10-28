@@ -63,6 +63,13 @@
                         type: 'input',
                     },
                     {
+                        default: true,
+                        label: '模糊搜索',
+                        key: 'remote',
+                        remoteMethod:this.remoteMethod,
+                        type: 'remote',
+                    },
+                    {
                         label: '下拉2222222框初始值',
                         key: 'select',
                         type: 'select',
@@ -225,6 +232,12 @@
             }
         },
         methods: {
+            remoteMethod(query) {
+                console.log(query);
+                return new Promise(resolve => {
+                    resolve([{label:1,value:1}])
+                })
+            },
             deleteLast() {
                 this.inputList.shift(0, 1);
                 console.log(this.inputList);

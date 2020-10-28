@@ -52,6 +52,24 @@
                     placeholder="结束日期">
             </el-date-picker>
         </div>
+        <el-select
+                v-if="config.type==='remote'"
+                v-model="inputVal"
+                :multiple="!!config.multiple"
+                filterable
+                remote
+                clearable
+                reserve-keyword
+                :placeholder="`请选择${config.label}`"
+                :remote-method="remoteMethod"
+                :loading="loading">
+            <el-option
+                    v-for="item in remoteOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+        </el-select>
     </div>
 </template>
 
@@ -67,6 +85,8 @@ export default {
     },
     data() {
         return {
+            loading: false,
+            remoteOptions:[],
             searchList: [],
             inputVal: '',
             rangTime: {startTime: "", endTime: ''},
@@ -112,6 +132,17 @@ export default {
         }
     },
     methods:{
+        remoteMethod(query){
+            if (query !== '') {
+                this.loading = true;
+                this.config.remoteMethod(query).then(res=>{
+                    this.remoteOptions = res;
+                    this.loading = false;
+                })
+            } else {
+                this.remoteOptions = [];
+            }
+        },
         changeList(data){
             if (data.query) {
                 data.list().then(res => {
