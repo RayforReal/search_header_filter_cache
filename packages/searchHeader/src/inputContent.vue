@@ -136,7 +136,11 @@ export default {
             if (query !== '') {
                 this.loading = true;
                 this.config.remoteMethod(query).then(res=>{
-                    this.remoteOptions = res;
+                    if(this.config){
+                        this.remoteOptions = this.config.dataProxy(res)
+                    }else {
+                        this.remoteOptions = res;
+                    }
                     this.loading = false;
                 })
             } else {

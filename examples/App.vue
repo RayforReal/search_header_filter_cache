@@ -68,6 +68,11 @@
                         key: 'remote',
                         remoteMethod:this.remoteMethod,
                         type: 'remote',
+                        dataProxy:(data)=>{
+                            return data.map(item=>{
+                                return {label:item,value:item}
+                            })
+                        }
                     },
                     {
                         label: '下拉2222222框初始值',
