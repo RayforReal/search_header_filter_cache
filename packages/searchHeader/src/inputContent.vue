@@ -58,6 +58,7 @@
                 :multiple="!!config.multiple"
                 filterable
                 remote
+                @blur="remoteOptions=[]"
                 clearable
                 reserve-keyword
                 :placeholder="`请选择${config.label}`"
