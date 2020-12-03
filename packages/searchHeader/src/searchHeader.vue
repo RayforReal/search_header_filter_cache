@@ -406,6 +406,9 @@ export default {
             if (search && search.length > 0) {
                 this.operationClick(search[0])
             }
+            this.$refs.inputContent.forEach(item => {
+                item.clearRemote();
+            })
         },
         isDisabled(key) {
             return this.needDisabled.includes(key);

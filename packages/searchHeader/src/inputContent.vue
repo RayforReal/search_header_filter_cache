@@ -58,7 +58,6 @@
                 :multiple="!!config.multiple"
                 filterable
                 remote
-                @blur="remoteOptions=[]"
                 clearable
                 reserve-keyword
                 :placeholder="`请选择${config.label}`"
@@ -133,6 +132,9 @@ export default {
         }
     },
     methods:{
+        clearRemote() {
+            this.remoteOptions = []
+        },
         remoteMethod(query){
             if (query !== '') {
                 this.loading = true;
