@@ -1,30 +1,30 @@
 <template>
     <div class="search-header">
-        <div class="btn-container">
-            <el-button v-for="item in allBtnList.showBtnList"
-                       :key="item.key"
-                       :size="btnSize"
-                       :disabled="isDisabled(item.key)"
-                       :class="item.className||''"
-                       @click="operationClick(item)"
-                       :icon="item.icon||''"
-                       :type='item.type'>{{ item.label }}
-            </el-button>
-            <el-dropdown style="margin-left: 10px"
-                         @command="handleCommand"
-                         v-if="allBtnList.hiddenBtnList.length>0">
-                <el-button :size="btnSize">
-                    更多<i class="el-icon-arrow-down el-icon--right"/>
-                </el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for="item in allBtnList.hiddenBtnList"
-                                      :command="item"
-                                      :disabled="isDisabled(item.key)"
-                                      :key="item.label">{{ item.label }}
-                    </el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-        </div>
+<!--        <div class="btn-container">-->
+<!--            <el-button v-for="item in allBtnList.showBtnList"-->
+<!--                       :key="item.key"-->
+<!--                       :size="btnSize"-->
+<!--                       :disabled="isDisabled(item.key)"-->
+<!--                       :class="item.className||''"-->
+<!--                       @click="operationClick(item)"-->
+<!--                       :icon="item.icon||''"-->
+<!--                       :type='item.type'>{{ item.label }}-->
+<!--            </el-button>-->
+<!--            <el-dropdown style="margin-left: 10px"-->
+<!--                         @command="handleCommand"-->
+<!--                         v-if="allBtnList.hiddenBtnList.length>0">-->
+<!--                <el-button :size="btnSize">-->
+<!--                    更多<i class="el-icon-arrow-down el-icon&#45;&#45;right"/>-->
+<!--                </el-button>-->
+<!--                <el-dropdown-menu slot="dropdown">-->
+<!--                    <el-dropdown-item v-for="item in allBtnList.hiddenBtnList"-->
+<!--                                      :command="item"-->
+<!--                                      :disabled="isDisabled(item.key)"-->
+<!--                                      :key="item.label">{{ item.label }}-->
+<!--                    </el-dropdown-item>-->
+<!--                </el-dropdown-menu>-->
+<!--            </el-dropdown>-->
+<!--        </div>-->
         <transition name="el-zoom-in-top">
             <el-form v-show="showFiltrate&&hasSearch"
                      ref="moreSearch"
@@ -79,15 +79,40 @@
                     <img src="./icon/add.png" alt="">
                 </div>
             </div>
-            <div>
-                <el-button v-for="item in allBtnList.newlineBtn"
+            <div style="display: flex">
+                <el-button v-for="item in allBtnList.showBtnList"
                            :key="item.key"
                            :size="btnSize"
+                           :disabled="isDisabled(item.key)"
                            :class="item.className||''"
                            @click="operationClick(item)"
                            :icon="item.icon||''"
                            :type='item.type'>{{ item.label }}
                 </el-button>
+                <el-dropdown style="margin-left: 10px"
+                             @command="handleCommand"
+                             v-if="allBtnList.hiddenBtnList.length>0">
+                    <el-button :size="btnSize">
+                        更多<i class="el-icon-arrow-down el-icon--right"/>
+                    </el-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item v-for="item in allBtnList.hiddenBtnList"
+                                          :command="item"
+                                          :disabled="isDisabled(item.key)"
+                                          :key="item.label">{{ item.label }}
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+                <div style="margin-left: 10px">
+                    <el-button v-for="item in allBtnList.newlineBtn"
+                               :key="item.key"
+                               :size="btnSize"
+                               :class="item.className||''"
+                               @click="operationClick(item)"
+                               :icon="item.icon||''"
+                               :type='item.type'>{{ item.label }}
+                    </el-button>
+                </div>
             </div>
         </div>
         <filter-dialog
